@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My First Page</title>
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+  <body>
+    <header>
+      <a href="/" class="site">
+        {{ site.title }}
+      </a>
+      <nav>
+        <a href="/blog">Blog</a>
+      </nav>
+    </header>
+    <main>
+      <section>
+        {{ content }}
+      </section>
+    </main>
+    <footer>
+      &copy;2024 {{ site.owner }}. 
+      Built with <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+    </footer>
+  </body>
+</html>
