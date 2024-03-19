@@ -7,11 +7,11 @@
   </head>
   <body>
     <header>
-      <a href="{% link index.markdown %}" class="site">
+      <a href="{{ '/' | relative_url }}" class="site">
         {{ site.title }}
       </a>
       <nav>
-        <a href="{% link blog.markdown %}">Blog</a>
+        <a href="{{ '/blog' | relative_url }}">Blog</a>
       </nav>
     </header>
     <main>
