@@ -1,7 +1,6 @@
 ---
-layout: default
+layout: single
 title: Articles
-permalink: /blog/
 ---
 
 This will have a list of articles:
