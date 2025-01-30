@@ -1,8 +1,7 @@
 ---
 layout: single
-title: "Welcome to Jekyll!"
-date: 2024-03-18 14:21:45 +0100
-categories: jekyll update
+title: "Welcome to Jekyll2!"
+# date: 2024-03-18 14:21:45 +0100
 author: "Pablo Alonso"
 ---
 

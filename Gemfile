@@ -16,7 +16,7 @@ source "https://rubygems.org"
 # gem "github-pages", group: :jekyll_plugins
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "github-pages", "~> 231"
+  gem "github-pages"
   gem "jekyll-include-cache" # https://github.com/mmistakes/minimal-mistakes
   gem "jekyll-paginate"
 end
