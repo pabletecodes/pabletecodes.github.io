@@ -51,7 +51,7 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-remote_theme: "mmistakes/minimal-mistakes@4.26.2"
+remote_theme: "mmistakes/minimal-mistakes"
 date_format: "%Y-%m-%d"
 enable_copy_code_button: true
 atom_feed:
