@@ -19,6 +19,7 @@ group :jekyll_plugins do
   gem "github-pages"
   gem "jekyll-include-cache" # https://github.com/mmistakes/minimal-mistakes
   gem "jekyll-paginate"
+  gem 'jekyll-target-blank'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
