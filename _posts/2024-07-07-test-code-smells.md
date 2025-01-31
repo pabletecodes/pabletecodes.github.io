@@ -1,3 +1,8 @@
+---
+title: "Improving Code Design by Identifying Test Code Smells"
+excerpt: "If your code is hard to test, there's probably a problem with your design. Don't fix your tests, fix your code!"
+---
+
 In [Fixing Design with Tests](https://youtu.be/fsvRXOADWnw?si=xvfEjKQLWSgi8fP8), Michael Feathers makes a very interesting point:
 
 > the ease and test design should be a side effect of having good design around the thing that you’re testing
@@ -281,7 +286,7 @@ Here’re are some **specific “test code smells” or “testing pains” you 
 - Tests that are slow (eg: because they access external resources).
 - Tests that are hard to understand.
 
-## Wrap up
+## Conclusion
 
 Michael Feathers, in "Fixing Design with Tests," emphasizes that good code design naturally leads to easier testability. Difficulty in writing tests often points to poor design, suggesting a need for redesign.
 

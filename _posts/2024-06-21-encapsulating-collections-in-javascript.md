@@ -1,5 +1,6 @@
 ---
 title: "Encapsulating Collections in Javascript"
+excerpt: "Learn about the 'Encapsulated collection' refactoring and how you can implement it in JavaScript."
 ---
 
 Imagine you have the following class:
@@ -189,7 +190,7 @@ class Team {
 }
 ```
 
-## Wrap up
+## Conclusion
 
 By encapsulating the collection of members inside the Team class, we’re preventing unwanted modifications of the collection from the outside, and providing a nice interface to interact with the collection.
 
