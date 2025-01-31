@@ -211,4 +211,10 @@ figcaption {
   .pagination {
     display: none;
   }
+
+  footer {
+    .page__date {
+      display: none;
+    }
+  }
 }
