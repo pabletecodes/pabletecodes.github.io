@@ -1,6 +1,8 @@
 ---
 title: "Leveling Up Together: My Experience Designing, Implementing and Leading a Code Kata"
 excerpt: "The story of how I designed, implemented and led a Code Kata for some of my teammates! 🧑🏻‍💻"
+header:
+  image: assets/images/posts/leading-a-code-kata/header-image.jpeg
 ---
 
 Last week, I led a Code Kata for some of my teammates at [Empathy.co](https://empathy.co/).
@@ -59,33 +61,33 @@ I didn’t spend much time making it pretty 😊
 The repo also contains a suite of unit tests for the main component, so that the code can be refactored with confidence:
 
 ```bash
-     ✓ src/views/__tests__/SignupView.test.ts (14)
-       ✓ SignupView (14)
-         ✓ should show the form and no errors
-         ✓ when the form is invalid (9)
-           ✓ should show an error if the name is empty
-           ✓ should show an error if the email is empty
-           ✓ should show an error if the email is invalid
-           ✓ should show an error if the email has already been used
-           ✓ should show an error if the birthday is empty
-           ✓ should show an error if the user is not older than 18
-           ✓ should show an error if the password is too short
-           ✓ should show an error if the passwords don't match
-           ✓ should show multiple errors
-         ✓ when the form is valid (4)
-           ✓ should not show any errors
-           ✓ should not show the form
-           ✓ should show a confirmation message
-           ✓ should create a user with an encrypted password
+✓ src/views/__tests__/SignupView.test.ts (14)
+  ✓ SignupView (14)
+    ✓ should show the form and no errors
+    ✓ when the form is invalid (9)
+      ✓ should show an error if the name is empty
+      ✓ should show an error if the email is empty
+      ✓ should show an error if the email is invalid
+      ✓ should show an error if the email has already been used
+      ✓ should show an error if the birthday is empty
+      ✓ should show an error if the user is not older than 18
+      ✓ should show an error if the password is too short
+      ✓ should show an error if the passwords don't match
+      ✓ should show multiple errors
+    ✓ when the form is valid (4)
+      ✓ should not show any errors
+      ✓ should not show the form
+      ✓ should show a confirmation message
+      ✓ should create a user with an encrypted password
 
-     Test Files  1 passed (1)
-          Tests  14 passed (14)
-       Start at  11:07:07
-       Duration  196ms
+Test Files  1 passed (1)
+    Tests  14 passed (14)
+  Start at  11:07:07
+  Duration  196ms
 
 
-     PASS  Waiting for file changes...
-           press h to show help, press q to quit
+PASS  Waiting for file changes...
+      press h to show help, press q to quit
 ```
 
 ## Preparing for the Session
@@ -119,7 +121,7 @@ At the start of the session, I gave a brief introduction to explain the goals fo
 
 I then organized participants into pairs, asked each of the pairs to seat side-by-side with one laptop, shared the repo, and asked them to follow the instructions on the [README](https://github.com/alonsogarciapablo/vue-js-refactoring-kata/blob/main/README.md).
 
-{% include figure popup=false image_path="assets/images/posts/leading-a-code-kata/sessions.webp" alt="Participants working on the code kata" caption="
+{% include figure popup=false image_path="assets/images/posts/leading-a-code-kata/session.webp" alt="Participants working on the code kata" caption="
 Participants working in pairs during the session
 " %}
 

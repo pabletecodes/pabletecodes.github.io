@@ -95,7 +95,7 @@ defaults:
       path: ""
       type: posts
     values:
-      layout: single
+      layout: post
       author_profile: false
       breadcrumbs: false
       show_date: true
