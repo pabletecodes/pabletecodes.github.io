@@ -108,8 +108,8 @@ The two new functions use the original one and still, nobody is using them.
 
 We now have to use the new functions everywhere (expect inside of the new functions) by doing some “find and replace”:
 
-- `processOrder(orderId, false)` 👉 processStandardOrder(orderId)`
-- `processOrder(orderId, true)` 👉 processExpressOrder(orderId)`
+- `processOrder(orderId, false)` 👉 `processStandardOrder(orderId)`
+- `processOrder(orderId, true)` 👉 `processExpressOrder(orderId)`
 
 ### 3\. Make the original function “private”
 
