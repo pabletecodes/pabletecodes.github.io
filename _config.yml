@@ -25,7 +25,7 @@ email: alonsogarciapablo@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Pablo Alonso's corner on the internet, where he writes about all things code and product.
 url: "https://alonsogarciapablo.github.io" # TODO: Replace with domain nomae
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 
 # https://jekyllrb.com/docs/permalinks/#placeholders
 permalink: pretty
