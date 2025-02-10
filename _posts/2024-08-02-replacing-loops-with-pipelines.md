@@ -35,7 +35,7 @@ This code is generating a new collection of products by:
 
 Easy, right?
 
-Let’s see how we can can replace a “pipeline”.
+Let’s see how we can can replace this loop with a “pipeline”.
 
 According to [Wikipedia](<https://en.wikipedia.org/wiki/Pipeline_(software)>):
 
@@ -71,12 +71,10 @@ Now we can get rid of the `forEach` using `Array.prototype.map()`:
 const products = [...];
 const filteredProductsWithDiscount = products
   .filter(product => product.price > 50)
-  .map(product => { <--- this
-    return {
-      name: product.name,
-      price: product.price * 0.9
-    };
-  });
+  .map(product => ({ <--- this
+    name: product.name,
+    price: product.price * 0.9
+  )});
 
 filteredProductsWithDiscount.sort((a, b) => a.price - b.price);
 ```
@@ -89,12 +87,10 @@ Finally, we can append the sorting to the pipeline:
 const products = [...];
 const filteredProductsWithDiscount = products
   .filter(product => product.price > 50)
-  .map(product => {
-    return {
-      name: product.name,
-      price: product.price * 0.9
-    };
-  })
+  .map(product => ({
+    name: product.name,
+    price: product.price * 0.9
+  )})
   .sort((a, b) => a.price - b.price); <--- this
 ```
 
@@ -155,7 +151,7 @@ Object.fromEntries(
 )
 ```
 
-Isn’t it better?
+Isn’t it way easier to understand too?
 
 ## Conclusion
 
