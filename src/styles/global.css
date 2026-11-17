@@ -1,0 +1,79 @@
+/* Tokyo Night palette, as used by omarchy.org. */
+:root {
+  --bg: #1a1b26;
+  --surface: #1f2335;
+  --text: #c0caf5;
+  --muted: #7c84ad;
+  --line: #2f3549;
+  --accent: #7aa2f7;
+  --green: #9ece6a;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1rem/1.7 var(--mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: normal;
+}
+
+h1 {
+  color: var(--accent);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+h2::before {
+  content: '# ';
+  color: var(--muted);
+}
+
+section {
+  margin-top: 4rem;
+}
+
+p {
+  max-width: 42rem;
+  margin: 0 0 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline var(--muted);
+  text-underline-offset: 0.25em;
+}
+
+a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.muted {
+  color: var(--muted);
+}

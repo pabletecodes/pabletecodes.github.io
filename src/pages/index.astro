@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Timeline from '../components/Timeline.astro';
+import Writing from '../components/Writing.astro';
+import { site } from '../data/site';
+
+const links = site.links.filter((link) => link.url);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a1b26" />
+    <title>{site.title}</title>
+    <meta name="description" content={site.tagline} />
+    <meta property="og:title" content={site.title} />
+    <meta property="og:description" content={site.tagline} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>{site.name}</h1>
+        <p class="muted">{site.tagline}</p>
+      </header>
+
+      <section aria-label="About">
+        {site.bio.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+
+      <Timeline />
+      <Writing />
+
+      <footer>
+        <section class="muted">
+          [↗]: {links.map((link, i) => (
+            <>
+              <a href={link.url} rel="me">{link.label}</a>{i < links.length - 1 && ', '}
+            </>
+          ))}
+        </section>
+      </footer>
+    </main>
+  </body>
+</html>
