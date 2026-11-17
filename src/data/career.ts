@@ -38,7 +38,7 @@ const from = (year: number, month: number) => year + (month - 1) / 12;
 const to = (year: number, month: number) => year + month / 12;
 
 export const groups: Group[] = [
-  { id: 'corporate', label: 'Corporate' },
+  { id: 'corporate', label: 'Work' },
   { id: 'side', label: 'Side projects' },
   { id: 'community', label: 'Community' },
   { id: 'education', label: 'Education' },
@@ -286,6 +286,7 @@ export const entries: Entry[] = [
     group: 'community',
     name: 'iWeekend',
     manual: true,
+    logo: '/logos/iweekend.png',
     context: 'A weekend-long event to turn ideas into startups.',
     positions: [
       {

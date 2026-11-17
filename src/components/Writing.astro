@@ -13,7 +13,7 @@ const substackUrl = site.links.find((link) => link.label === 'Substack')?.url;
       <ol>
         {posts.map((post) => (
           <li>
-            <a href={post.url}>{post.title}</a>
+            <a href={post.url} target="_blank" rel="noopener">{post.title}</a>
             <time datetime={post.date.toISOString()}>{post.date.getFullYear()}</time>
           </li>
         ))}
@@ -22,7 +22,7 @@ const substackUrl = site.links.find((link) => link.label === 'Substack')?.url;
       <p class="muted">Soon.</p>
     )
   }
-  {substackUrl && <p><a href={substackUrl}>Subscribe on Substack</a></p>}
+  {substackUrl && <p><a href={substackUrl} target="_blank" rel="noopener">Subscribe on Substack</a></p>}
 </section>
 
 <style>

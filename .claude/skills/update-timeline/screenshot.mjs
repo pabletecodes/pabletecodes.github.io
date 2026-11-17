@@ -58,13 +58,16 @@ try {
   await viewport(1280, 900);
   await send('Page.navigate', { url });
   await sleep(2000);
+  // The timeline starts folded; open both toggles so the screenshot shows every entry.
+  await evaluate(`document.querySelectorAll('[data-career] .toggle[aria-expanded="false"]:not([hidden])').forEach((b) => b.click())`);
+  await sleep(1500);
   await viewport(1280, await evaluate('document.documentElement.scrollHeight'));
   await shot('timeline.png', '[data-career]');
 
   await viewport(1280, 900);
   const opened = await evaluate(`(() => {
     const cards = document.querySelectorAll('[id^="corporate-"][popover]');
-    const card = cards[cards.length - 1];
+    const card = cards[cards.length - 1]; // newest corporate entry
     card?.showPopover();
     return card?.id;
   })()`);

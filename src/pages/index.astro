@@ -5,6 +5,7 @@ import Writing from '../components/Writing.astro';
 import { site } from '../data/site';
 
 const links = site.links.filter((link) => link.url);
+const linkedin = site.links.find((link) => link.label === 'LinkedIn')?.url;
 ---
 
 <html lang="en">
@@ -29,6 +30,13 @@ const links = site.links.filter((link) => link.url);
 
       <section aria-label="About">
         {site.bio.map((paragraph) => <p>{paragraph}</p>)}
+        <p class="cta">{site.cta}</p>
+        <p class="actions">
+          <a class="button primary email" data-user={site.email.user} data-domain={site.email.domain} href={linkedin}>
+            Shoot me an email
+          </a>
+          <a class="button" href={linkedin} target="_blank" rel="noopener">Message me on LinkedIn ↗</a>
+        </p>
       </section>
 
       <Timeline />
@@ -38,11 +46,17 @@ const links = site.links.filter((link) => link.url);
         <section class="muted">
           [↗]: {links.map((link, i) => (
             <>
-              <a href={link.url} rel="me">{link.label}</a>{i < links.length - 1 && ', '}
+              <a href={link.url} target="_blank" rel="me noopener">{link.label}</a>{i < links.length - 1 && ', '}
             </>
           ))}
         </section>
       </footer>
     </main>
+    <script>
+      // Build the mailto link in the browser so scrapers don't find the address in the HTML.
+      for (const link of document.querySelectorAll<HTMLAnchorElement>('a.email')) {
+        link.href = `mailto:${link.dataset.user}@${link.dataset.domain}`;
+      }
+    </script>
   </body>
 </html>

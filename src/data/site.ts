@@ -3,12 +3,18 @@
 export const site = {
   name: 'Pablo Alonso',
   // Browser tab, search results and link previews. The page heading is `name`.
-  title: 'Pablo Alonso · Product Engineer',
-  tagline: 'Product engineer. I make sure AI builds the right thing, right.',
+  title: 'Pablo Alonso · Senior Product Engineer',
+  tagline: 'Senior Product Engineer - I figure out what customers need, then build it and ship it.',
   bio: [
-    "I'm a software engineer grounded in clean code who brings the product judgment: AI executes, I decide what to build.",
-    'I write about product engineering and building with AI in practice: what to delegate and what not, keeping quality high when code is generated, and building things solo.',
+    "For 20 years I've been shipping software, sometimes as a full-stack or frontend engineer, sometimes as the PM deciding what to build, sometimes as a one-person team.",
+    'What I enjoy most is starting from a customer problem and taking it all the way to launch. These days AI helps me get there faster.',
+    "Right now I'm sharpening the axe: learning, tinkering, and open to interesting opportunities, remote, full-time or contract.",
   ],
+  // Shown above the contact buttons.
+  cta: 'Want to chat?',
+  // Used by the "Shoot me an email" button. Split so the address never
+  // appears whole in the HTML; the page assembles it.
+  email: { user: 'alonsogarciapablo', domain: 'gmail.com' },
   links: [
     { label: 'X', url: 'https://x.com/pabletecodes' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/pabletecodes/' },

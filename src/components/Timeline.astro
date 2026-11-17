@@ -26,11 +26,20 @@ const month = (year: number) =>
 const positionSpan = (entry: Entry, p: Position) =>
   entry.approx ? yearSpan(p.start, p.end, true) : `${month(p.start)} – ${p.end === undefined ? 'now' : month(p.end - 1 / 12)}`;
 
-// One row per position. Companies with several positions get a header row
-// first, and their positions are listed under it, oldest first.
+// One row per position, oldest first so the list reads in the same direction
+// as the year axis. Companies with several positions get a header row first,
+// with their positions listed under it.
 type Row =
   | { kind: 'company'; entry: Entry }
   | { kind: 'role'; entry: Entry; position: Position; id: string; single: boolean; last: boolean; stack?: string[] };
+
+// Folding: the timeline opens on the work history; the other groups sit behind
+// a button below it.
+const extraGroups = groups.filter((group) => group.id !== 'corporate');
+const extraLabel = `Show ${extraGroups
+  .map((group) => group.label.toLowerCase())
+  .join(', ')
+  .replace(/, ([^,]*)$/, ' & $1')} ↓`;
 
 const rowsFor = (group: string): Row[] =>
   entries
@@ -58,10 +67,10 @@ const initials = (name: string) =>
     .join('');
 ---
 
-<section aria-labelledby="timeline-title" data-career data-first={first} data-end={now}>
-  <h2 id="timeline-title">Timeline</h2>
+<section aria-labelledby="timeline-title" data-career data-first={first} data-end={now} data-extra-label={extraLabel}>
+  <h2 id="timeline-title">Experience</h2>
 
-  <div class="chart" tabindex="0" aria-label="Career timeline. Use up and down arrows or j and k to move between entries, left and right arrows to move through the years.">
+  <div class="chart" tabindex="0" aria-label="Experience timeline. Use up and down arrows or j and k to move between entries, left and right arrows to move through the years.">
     <div class="row axis" aria-hidden="true">
       <span></span>
       <div class="ticks">
@@ -71,7 +80,7 @@ const initials = (name: string) =>
 
     {
       groups.map((group) => (
-        <div class="group">
+        <div class="group" data-extra={group.id !== 'corporate' || undefined}>
           <h3>{group.label}</h3>
           <ul>
             {rowsFor(group.id).map((row) =>
@@ -135,7 +144,7 @@ const initials = (name: string) =>
                       </ul>
                     )}
                     {row.entry.url && (
-                      <a class="visit" href={row.entry.url}>
+                      <a class="visit" href={row.entry.url} target="_blank" rel="noopener">
                         {new URL(row.entry.url).hostname.replace(/^www\./, '')} ↗
                       </a>
                     )}
@@ -147,6 +156,10 @@ const initials = (name: string) =>
         </div>
       ))
     }
+
+    <div class="toggle-row">
+      <button class="toggle extra-toggle" type="button" aria-expanded="false" hidden>{extraLabel}</button>
+    </div>
 
     <div class="cursor" hidden aria-hidden="true"><span></span></div>
   </div>
@@ -198,15 +211,46 @@ const initials = (name: string) =>
       show(first + ((event.clientX - box.left) / box.width) * (end - first));
     });
     chart.addEventListener('pointerleave', hide);
+    // Folding (JavaScript only, so without it everything is visible): the
+    // extra groups start hidden behind a toggle.
+    const extraToggle = root.querySelector<HTMLButtonElement>('.extra-toggle')!;
+
+    // Staggered slide-in.
+    const reveal = (elements: HTMLElement[]) => {
+      elements.forEach((el, i) => {
+        el.style.setProperty('--i', String(i));
+        el.classList.remove('rise');
+        el.offsetHeight; // restart the animation
+        el.classList.add('rise');
+      });
+    };
+
+    root.classList.add('folded-extra');
+    extraToggle.hidden = false;
+    extraToggle.addEventListener('click', () => {
+      const opening = root.classList.toggle('folded-extra') === false;
+      extraToggle.textContent = opening ? 'Show less ↑' : root.dataset.extraLabel!;
+      extraToggle.setAttribute('aria-expanded', String(opening));
+      if (opening) {
+        reveal([...root.querySelectorAll<HTMLElement>('[data-extra] > h3, [data-extra] > ul > li')]);
+      } else if (extraToggle.getBoundingClientRect().top < 0) {
+        extraToggle.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    });
+
     // Keyboard: ↑/↓ or j/k move between entries, ←/→ or h/l move through
     // the years, Enter opens the focused entry (then j/k flip through cards). Focusing an entry also puts
     // the year cursor in the middle of it.
     const buttons = rows.map((row) => row.el.querySelector<HTMLButtonElement>('button.row')!);
+    const focusable = () =>
+      [...chart.querySelectorAll<HTMLButtonElement>('button.row, button.toggle')].filter((b) => b.getClientRects().length > 0);
     const step = (delta: number) => {
-      const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
-      const next = index === -1 ? (delta > 0 ? 0 : buttons.length - 1) : index + delta;
-      const button = buttons[Math.min(Math.max(next, 0), buttons.length - 1)];
+      const visible = focusable();
+      const index = visible.indexOf(document.activeElement as HTMLButtonElement);
+      const next = index === -1 ? (delta > 0 ? 0 : visible.length - 1) : index + delta;
+      const button = visible[Math.min(Math.max(next, 0), visible.length - 1)];
       button.focus();
+      if (!button.matches('.row')) return hide();
       // With a card open, j/k flip through the cards.
       const open = chart.querySelector<HTMLElement>('.card:popover-open');
       if (open && open !== button.nextElementSibling) {
@@ -246,7 +290,8 @@ const initials = (name: string) =>
       if (chart.contains(target) || target.closest('input, textarea, [contenteditable], [popover]')) return;
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       event.preventDefault();
-      buttons[event.key === 'j' ? 0 : buttons.length - 1].focus();
+      const visible = focusable();
+      visible[event.key === 'j' ? 0 : visible.length - 1].focus();
     });
   }
 </script>
@@ -256,6 +301,48 @@ const initials = (name: string) =>
     --label: 19rem;
     --years: 7rem;
   }
+  .folded-extra [data-extra] {
+    display: none;
+  }
+  .rise {
+    animation: rise 0.5s calc(var(--i) * 35ms) both cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rise {
+      animation: none;
+    }
+  }
+  .toggle {
+    padding: 0.2rem 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .toggle:hover,
+  .toggle:focus-visible {
+    outline: none;
+    color: var(--accent);
+  }
+  .extra-toggle {
+    margin-top: 1.25rem;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--line);
+    font-size: inherit;
+  }
+  .extra-toggle:hover,
+  .extra-toggle:focus-visible {
+    border-color: var(--accent);
+  }
+
   .chart {
     position: relative;
     outline: none;
@@ -304,7 +391,7 @@ const initials = (name: string) =>
   .group > ul > li {
     transition: opacity 120ms;
   }
-  .scrubbing .group > ul > li:not(.active) {
+  .scrubbing .group > ul > li:not(.active, .toggle-row) {
     opacity: 0.3;
   }
 
